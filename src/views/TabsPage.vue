@@ -29,3 +29,12 @@ import { ellipse, square, triangle } from 'ionicons/icons';
 
 
 </script>
+
+<style>
+
+ion-tab-bar {
+  --background: #b8cbf3;
+}
+
+
+</style>

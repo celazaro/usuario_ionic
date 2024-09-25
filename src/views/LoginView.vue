@@ -31,19 +31,22 @@
                             </ion-item>
 
                             <br>
+
                             <ion-item style="--min-height: 70px;">
-                                <ion-input
-                                    label="Contraseña"
-                                    label-placement="stacked"
-                                    fill="outline"
-                                    shape="round"
-                                    clear-input
-                                    placeholder="*********"
-                                    type="password"
-                                    required
-                                    v-model="password"
-                                ></ion-input>
+                                <ion-input 
+                                type="password" 
+                                label="Contraseña" 
+                                label-placement="stacked" 
+                                fill="outline" 
+                                shape="round" 
+                                clear-input 
+                                required 
+                                placeholder="*********"
+                                v-model="password" >
+                                    <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+                                </ion-input>
                             </ion-item>
+                                
                             <br>
                             <ion-button
                             type="submit"
@@ -74,7 +77,7 @@
 
 <script lang="ts" setup >
 
-import { IonPage, IonContent, IonHeader, IonToolbar, IonTitle, IonButtons,  IonButton, IonInput,  IonGrid, IonRow, IonCol, IonItem, alertController, IonIcon } from '@ionic/vue'
+import { IonPage, IonContent, IonHeader, IonToolbar, IonTitle, IonButtons,  IonButton, IonInput,  IonGrid, IonRow, IonCol, IonItem, alertController, IonIcon, IonInputPasswordToggle } from '@ionic/vue'
 import { homeOutline } from 'ionicons/icons';
 
 import { ref } from 'vue'

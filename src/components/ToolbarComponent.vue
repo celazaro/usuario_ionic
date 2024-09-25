@@ -38,5 +38,9 @@ const logout = async () => {
 
 
 <style>
-    
+
+ion-toolbar {
+    --background: #b8cbf3;
+}
+
 </style>
