@@ -9,10 +9,14 @@
   </ion-header>
   <br><br><br>
   <ion-content>
-    <ion-img
+    <div class="logohome">
+      <ion-img
         src="src/assets/images/logo_carla.png"
         alt="Hospital Notti"
-  ></ion-img>
+        class="imagehome"
+      ></ion-img>
+    </div>
+    
   <ion-item class="ion-text-center">
     <ion-title >
       Atendemos tu salud 
@@ -61,5 +65,18 @@ import { logInOutline, logOutOutline } from 'ionicons/icons'
 
 
 <style>
-    
+
+  .logohome {
+    display: flex;
+    justify-content: center; /* Alineación horizontal */
+    align-items: center;    /* Alineación vertical */
+    height:300px;          /* Altura del div */
+    border: 2px solid #2d75db; /* Opcional: solo para visualizar el div */
+    margin: 20px;
+  
+  }
+  .imagehome {
+    max-width: 250px;
+  }
+
 </style>

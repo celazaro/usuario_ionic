@@ -66,7 +66,14 @@
                 </ion-grid>
             </form>
 
+            <ion-toast
+            :duration="3000"
+            :message="toastMessage"
+            :is-open="toastState"
+            @didDimiss="toastState = false"
+            :icon="informationCircleOutline"
             
+            ></ion-toast>
         </ion-content>
     </ion-page>
 
@@ -77,43 +84,68 @@
 
 <script lang="ts" setup >
 
-import { IonPage, IonContent, IonHeader, IonToolbar, IonTitle, IonButtons,  IonButton, IonInput,  IonGrid, IonRow, IonCol, IonItem, alertController, IonIcon, IonInputPasswordToggle } from '@ionic/vue'
-import { homeOutline } from 'ionicons/icons';
+import { IonPage, IonContent, IonHeader, IonToolbar, IonTitle, IonButtons,  IonButton, IonInput,  IonGrid, IonRow, IonCol, IonItem, IonIcon, IonInputPasswordToggle, IonToast } from '@ionic/vue'
+
+import { homeOutline, informationCircleOutline } from 'ionicons/icons';
 
 import { ref } from 'vue'
 
-import { useRouter } from 'vue-router';
+import { useRouter } from 'vue-router'
+
+import axios from 'axios'
+
+const router = useRouter()
 
 const username = ref("")
 const password = ref("")
+const toastState = ref(false)
+const toastMessage = ref('')
 
 
-const router = useRouter();
+const Login = async()  => {
 
-const Login = async () => {
-    if (username.value =='celazaro' && password.value == 'contraseña') {
+    toastState.value = false
+    await axios
+    .post('http://127.0.0.1:8000/api/login', {
+        username: username.value,
+        password: password.value
+    })
+    .then( response => {
+        if ( response.status == 200 ) {
+           
+            toastState.value = true
+            console.log('Ingreso perfecto!!')
+            console.log(response.data)
+            toastMessage.value = `Datos correctos!. Bienvenid@ ${username.value}`
+            router.push('/tabs/')
+        }
+    })
+    .catch( error => {
+        toastState.value = true
+        // Limpiar los campos en caso de error
+        username.value = ""
+        password.value = ""
+
+        if ( error.response && error.response.status == 400 ) {
+            console.log('Error en contraseña')
+            toastMessage.value="Error en contraseña"
+           
+
+        } else if (error.response && error.response.status == 404) {
+            console.log ('Su usuario no está registrado')
+            toastMessage.value="Usuario no registrado"
+            
+
+        } else {
+            console.log ('Problemas con el servidor.  Vuelva a intentar más tarde!!')
+            toastMessage.value="Poblemas con el servidor. Intente más tarde."
+           
+
+        }
         
-        username.value=""
-        password.value=""
+        
+    })
 
-        console.log('Ingreso perfecto!!')
-        await router.push('/tabs/')
-
-
-    } else {
-        console.log('No puede ingresar, error en sus datos.  Pruebe Nuevamente.')
-
-        const alert = await alertController.create({
-        header: 'Login',
-        subHeader: 'Datos ingresados no corresponden',
-        message: 'Intente nuevamente.  Muchas gracias!!',
-        buttons: ['Regresar']
-        });
-        await alert.present();
-
-        username.value=""
-        password.value=""
-    }
 }
 
 const Home = () => {
