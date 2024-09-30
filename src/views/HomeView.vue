@@ -9,19 +9,22 @@
   </ion-header>
   <br><br><br>
   <ion-content>
-    <div class="logohome">
-      <ion-img
-        src="src/assets/images/logo_carla.png"
-        alt="Hospital Notti"
-        class="imagehome"
-      ></ion-img>
-    </div>
-    
-  <ion-item class="ion-text-center">
-    <ion-title >
-      Atendemos tu salud 
-    </ion-title>
-  </ion-item>
+    <ion-grid>
+      <ion-row class="ion-justify-content-center">
+        <ion-col size="10" class="colimage">
+          <ion-img
+          :src="imageSrc"
+          alt="Hospital Notti"
+          ></ion-img>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-item class="ion-text-center">
+      <ion-title >
+        Atendemos tu salud 
+      </ion-title>
+    </ion-item>
   </ion-content>
   
   <ion-tabs>
@@ -41,23 +44,21 @@
     </ion-tab-bar>
   </ion-tabs>
 </ion-page>
-    
-
-  
-  
-
-    
-
-    
+        
 </template>
 
 
 
 <script lang="ts" setup >
 
-import { IonPage, IonContent, IonTabs, IonTabBar, IonTabButton, IonLabel, IonIcon, IonRouterOutlet, IonImg, IonTitle, IonItem, IonHeader, IonToolbar  } from '@ionic/vue'
+import { IonPage, IonContent, IonGrid, IonRow, IonCol, IonTabs, IonTabBar, IonTabButton, IonLabel, IonIcon, IonRouterOutlet, IonImg, IonTitle, IonItem, IonHeader, IonToolbar } from '@ionic/vue'
 
 import { logInOutline, logOutOutline } from 'ionicons/icons'
+
+import { ref } from 'vue'
+
+const imageSrc = ref('src/assets/images/logo_carla.png');
+
 
 </script>
 
@@ -66,17 +67,19 @@ import { logInOutline, logOutOutline } from 'ionicons/icons'
 
 <style>
 
-  .logohome {
-    display: flex;
-    justify-content: center; /* Alineación horizontal */
-    align-items: center;    /* Alineación vertical */
-    height:300px;          /* Altura del div */
-    border: 2px solid #2d75db; /* Opcional: solo para visualizar el div */
-    margin: 20px;
+.colimage {
+  border: solid 2px #1939f0;
+  max-height: 300px;
+  margin-bottom: 20px;
+  overflow: hidden; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.colimage ion-img {
+  max-width: 350px;    /* La imagen no superará el ancho del contenedor */
+  height: 350px;   /* La imagen no superará el alto del contenedor */
   
-  }
-  .imagehome {
-    max-width: 250px;
-  }
+}
 
 </style>

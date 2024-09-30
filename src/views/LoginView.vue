@@ -94,6 +94,8 @@ import { useRouter } from 'vue-router'
 
 import axios from 'axios'
 
+import { Storage } from '@ionic/storage'
+
 const router = useRouter()
 
 const username = ref("")
@@ -105,6 +107,7 @@ const toastMessage = ref('')
 const Login = async()  => {
 
     toastState.value = false
+
     await axios
     .post('http://127.0.0.1:8000/api/login', {
         username: username.value,
@@ -115,9 +118,21 @@ const Login = async()  => {
            
             toastState.value = true
             console.log('Ingreso perfecto!!')
-            console.log(response.data)
+            console.log('Valores obtenidos de base de datos: ' , response)
+
             toastMessage.value = `Datos correctos!. Bienvenid@ ${username.value}`
+
+            const storage = new Storage()
+            storage.create()
+
+            storage.set('token', response.data.token)
+            storage.set('username', response.data.user.username)
+
+            username.value=''
+            password.value=''
+
             router.push('/tabs/')
+
         }
     })
     .catch( error => {
@@ -129,7 +144,6 @@ const Login = async()  => {
         if ( error.response && error.response.status == 400 ) {
             console.log('Error en contraseña')
             toastMessage.value="Error en contraseña"
-           
 
         } else if (error.response && error.response.status == 404) {
             console.log ('Su usuario no está registrado')
@@ -138,14 +152,9 @@ const Login = async()  => {
 
         } else {
             console.log ('Problemas con el servidor.  Vuelva a intentar más tarde!!')
-            toastMessage.value="Poblemas con el servidor. Intente más tarde."
-           
-
+            toastMessage.value="Poblemas con el servidor. Intente más tarde."           
         }
-        
-        
     })
-
 }
 
 const Home = () => {

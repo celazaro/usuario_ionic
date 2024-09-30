@@ -17,7 +17,7 @@ import { IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonIcon  } from
 import { logOutOutline } from 'ionicons/icons'
 
 import { useRouter } from 'vue-router'
-
+import { Storage } from '@ionic/storage'
 
 defineProps({
   tittle: String,
@@ -27,6 +27,11 @@ const router = useRouter()
 
 
 const logout = async () => {
+
+    const storage = new Storage()
+    await storage.create()
+
+    await storage.clear()
 
     await router.push('/')
 
