@@ -72,7 +72,6 @@
             :is-open="toastState"
             @didDimiss="toastState = false"
             :icon="informationCircleOutline"
-            
             ></ion-toast>
         </ion-content>
     </ion-page>
